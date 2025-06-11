@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CDADBannerViewStyle">
+        <attr name="cdAdSize" format="enum">
+            <enum name="CDAD_BANNERSIZE_320X50" value="0"/>
+            <enum name="CDAD_BANNERSIZE_300X50" value="1"/>
+            <enum name="CDAD_BANNERSIZE_300X250" value="2"/>
+            <enum name="CDAD_BANNERSIZE_320X100" value="3"/>
+            <enum name="CDAD_BANNERSIZE_728X90" value="4"/>
+            <enum name="CDAD_BANNERSIZE_320X480" value="5"/>
+            <enum name="CDAD_BANNERSIZE_768X1024" value="6"/>
+        </attr>
+    </declare-styleable>
+</resources>

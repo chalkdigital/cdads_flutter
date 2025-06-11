@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CDAds</string>
+    <string name="TrackingPermissionTitle">would like to use your device information.</string>
+    <string name="TrackingPermissionMessage">Device information is required to serve you better.</string>
+    <string name="LocationServiceDisabledTitle">Location services disabled.</string>
+    <string name="LocationServiceDisabledMessage">App needs location service to serve you better. Please enable location services to so that we can serve you better.</string>
+    <string name="LocationPermissionDeniedMessage">App needs location service to serve you better. Please go to settings and turn on location service for this app.</string>
+    <string name="LocationPermissionDeniedTitle">is not authorised to access your location.</string>
+    <string name="PermissionAllowLabel">OK</string>
+    <string name="PermissionDenyLabel">Don\'t Allow</string>
+    <string name="AlertDialogCancelLabel">OK</string>
+    <string name="AgreeButtonTitle">Agree</string>
+    <string name="DisagreeButtonTitle">DisAgree</string>
+    <string name="CDAdTerms">Chalk Digital would like to track your device informtion to serve you better. Please agree following terms and contions to proceed.\n\n1. Chalk Digital can use your device information to target specific ads on your device.\n\n2. Chalk Digital can share your device infomation with other ad publishers.</string>
+    <string name="PermissionHeadingLabel">Terms and Conditions</string>
+    <string name="LocationPermissionGranted">Location Permission Granted</string>
+    <string name="LocationPermissionDenied">Location Permission Denied</string>
+    <string name="LearnMore">Learn More</string>
+    <string name="Skip">Skip</string>
+    <string name="title_activity_scrolling">Viewability Test</string>
+</resources>

@@ -1,0 +1,28 @@
+PODS:
+  - cdads_flutter (0.0.1):
+    - Chalkdigital-Mobile-Ads-SDK
+    - Flutter
+  - Chalkdigital-Mobile-Ads-SDK (0.0.1)
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - cdads_flutter (from `.symlinks/plugins/cdads_flutter/ios`)
+  - Chalkdigital-Mobile-Ads-SDK (from `../../../../iOS-SDK-v2/CDAdsSample/CDAds`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  cdads_flutter:
+    :path: ".symlinks/plugins/cdads_flutter/ios"
+  Chalkdigital-Mobile-Ads-SDK:
+    :path: "../../../../iOS-SDK-v2/CDAdsSample/CDAds"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  cdads_flutter: eb008f277ec15edcdeb3e6c2ceec4691400ca52e
+  Chalkdigital-Mobile-Ads-SDK: aea0d9d38846fd81e080752b098dd119f72df87a
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+
+PODFILE CHECKSUM: ec302787f894d4833e1ee04020f6db7d5ce0455b
+
+COCOAPODS: 1.16.2
