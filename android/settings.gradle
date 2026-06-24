@@ -1,1 +1,17 @@
 rootProject.name = 'cdads_flutter'
+
+// Include the CDAds Android SDK as a local module
+include ':cdads'
+project(':cdads').projectDir = new File('../../CDAds-Android-SDK/cdads')
+
+// :cdads's build.gradle.kts uses version-catalog accessors (libs.plugins.*) that
+// are normally provided by CDAds-Android-SDK's own settings.gradle.kts — since
+// it's redirected here as a foreign subproject, that catalog must be imported
+// explicitly or `libs.*` won't resolve.
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files('../../CDAds-Android-SDK/gradle/libs.versions.toml'))
+        }
+    }
+}

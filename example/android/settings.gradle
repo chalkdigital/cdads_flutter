@@ -18,9 +18,25 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version '8.8.2' apply false
-    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+    // Pinned to match CDAds-Android-SDK/gradle/libs.versions.toml — :cdads is
+    // included as a foreign subproject below and AGP/Kotlin must resolve to a
+    // single version across the whole build.
+    id "com.android.application" version '8.3.2' apply false
+    id "org.jetbrains.kotlin.android" version "1.9.23" apply false
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
 }
 
 include ":app", ":cdads"
+project(":cdads").projectDir = new File(rootDir, "../../../CDAds-Android-SDK/cdads")
+
+// :cdads's build.gradle.kts uses version-catalog accessors (libs.plugins.*) that
+// are normally provided by CDAds-Android-SDK's own settings.gradle.kts — since
+// it's redirected here as a foreign subproject, that catalog must be imported
+// explicitly or `libs.*` won't resolve.
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files("$rootDir/../../../CDAds-Android-SDK/gradle/libs.versions.toml"))
+        }
+    }
+}

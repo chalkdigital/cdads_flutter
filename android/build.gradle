@@ -1,15 +1,15 @@
-group = "com.example.cdadsflutter"
+group = "com.chalkdigital.cdads"
 version = "1.0-SNAPSHOT"
 
 buildscript {
-    ext.kotlin_version = "1.8.22"
+    ext.kotlin_version = "1.9.23"
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.0")
+        classpath("com.android.tools.build:gradle:8.3.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
@@ -25,17 +25,17 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    namespace = "com.example.cdads"
+    namespace = "com.chalkdigital.cdads"
 
-    compileSdk = 35
+    compileSdk = 34
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = "17"
     }
 
     sourceSets {
@@ -44,31 +44,19 @@ android {
     }
 
     defaultConfig {
-        minSdk = 26
-    }
-
-    dependencies {
-        testImplementation("org.jetbrains.kotlin:kotlin-test")
-        testImplementation("org.mockito:mockito-core:5.0.0")
+        minSdk = 24
     }
 
     testOptions {
         unitTests.all {
             useJUnitPlatform()
-
-            testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
-            }
         }
     }
 }
 
 dependencies {
-   implementation('com.chalkdigital:cdads:2.2.1') {
-       exclude group: 'androidx.annotation', module: 'annotation'
-   }
-    // Add a direct dependency on the correct annotation version
-    implementation 'androidx.annotation:annotation:1.7.1'
+    // CDAds native Android SDK (local project)
+    implementation project(":cdads")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
