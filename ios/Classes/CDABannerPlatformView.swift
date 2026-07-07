@@ -70,6 +70,9 @@ final class CDABannerPlatformView: NSObject, FlutterPlatformView {
         if let refreshInterval = params?["refreshInterval"] as? Double {
             bannerView.refreshInterval = refreshInterval
         }
+        if let behaviourStr = params?["landingPageBehaviour"] as? String {
+            bannerView.landingPageBehaviour = behaviourStr == "deviceBrowser" ? .deviceBrowser : .inAppBrowser
+        }
 
         // Register so the bridge can find this view when loadBanner() arrives
         Self.registry[adUnitId] = bannerView

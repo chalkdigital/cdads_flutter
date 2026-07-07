@@ -11,6 +11,11 @@ final class CDAdsHostApiImpl: NSObject, CDAdsHostApi {
     // Sends events from native → Dart
     private let flutterApi: CDAdsFlutterApi
 
+    // Strong references to banner delegates — CDABannerView.delegate is weak,
+    // so without this the forwarder is deallocated before the ad loads and
+    // bannerDidLoad never fires.
+    private var bannerForwarders: [String: BannerEventForwarder] = [:]
+
     init(messenger: FlutterBinaryMessenger) {
         self.flutterApi = CDAdsFlutterApi(binaryMessenger: messenger)
     }
@@ -57,13 +62,16 @@ final class CDAdsHostApiImpl: NSObject, CDAdsHostApi {
         guard let bannerView = CDABannerPlatformView.registry[request.adUnitId] else {
             throw CDAds.AdError(.invalidRequest, "No banner PlatformView registered for \(request.adUnitId)")
         }
-        bannerView.delegate = BannerEventForwarder(adUnitId: request.adUnitId, flutterApi: flutterApi)
+        let forwarder = BannerEventForwarder(adUnitId: request.adUnitId, flutterApi: flutterApi)
+        bannerForwarders[request.adUnitId] = forwarder
+        bannerView.delegate = forwarder
         bannerView.load(request: request.toSDK())
     }
 
     func destroyBanner(adUnitId: String) throws {
         CDABannerPlatformView.registry[adUnitId]?.destroy()
         CDABannerPlatformView.registry.removeValue(forKey: adUnitId)
+        bannerForwarders.removeValue(forKey: adUnitId)
     }
 
     // MARK: - Interstitial

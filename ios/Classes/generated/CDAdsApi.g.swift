@@ -144,6 +144,9 @@ struct CDAdsConfig {
   /// Pass true once the host app has obtained ATT / IDFA permission (iOS)
   /// or confirmed the user is not opted-out (Android).
   var clientHasUserTrackingPermission: Bool
+  /// iOS only. When true the plugin calls ATTrackingManager.requestTrackingAuthorization()
+  /// during initialize() before starting the SDK. No-op on Android.
+  var requestTrackingAuthorization: Bool
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -162,6 +165,7 @@ struct CDAdsConfig {
     let locationUpdateInterval = pigeonVar_list[11] as! Double
     let locationExpiryInterval = pigeonVar_list[12] as! Double
     let clientHasUserTrackingPermission = pigeonVar_list[13] as! Bool
+    let requestTrackingAuthorization = pigeonVar_list[14] as! Bool
 
     return CDAdsConfig(
       partnerKey: partnerKey,
@@ -177,7 +181,8 @@ struct CDAdsConfig {
       locationDistanceFilter: locationDistanceFilter,
       locationUpdateInterval: locationUpdateInterval,
       locationExpiryInterval: locationExpiryInterval,
-      clientHasUserTrackingPermission: clientHasUserTrackingPermission
+      clientHasUserTrackingPermission: clientHasUserTrackingPermission,
+      requestTrackingAuthorization: requestTrackingAuthorization
     )
   }
   func toList() -> [Any?] {
@@ -196,6 +201,7 @@ struct CDAdsConfig {
       locationUpdateInterval,
       locationExpiryInterval,
       clientHasUserTrackingPermission,
+      requestTrackingAuthorization,
     ]
   }
 }

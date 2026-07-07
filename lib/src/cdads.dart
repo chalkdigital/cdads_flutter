@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+
 import 'generated/cdads_api.g.dart';
 import 'cdads_event_handler.dart';
 
@@ -18,6 +22,9 @@ class CDAds {
 
   /// Initialise the SDK. Call once before using any ad types.
   static Future<void> initialize(CDAdsConfig config) async {
+    if (config.requestTrackingAuthorization && Platform.isIOS) {
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
     CDAdsEventHandler.setUp();
     await _hostApi.initialize(config);
   }

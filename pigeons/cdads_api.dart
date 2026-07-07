@@ -52,6 +52,7 @@ class CDAdsConfig {
     this.locationUpdateInterval = 30.0,
     this.locationExpiryInterval = 300.0,
     this.clientHasUserTrackingPermission = false,
+    this.requestTrackingAuthorization = false,
   });
 
   final String partnerKey;
@@ -80,6 +81,10 @@ class CDAdsConfig {
   /// Pass true once the host app has obtained ATT / IDFA permission (iOS)
   /// or confirmed the user is not opted-out (Android).
   final bool clientHasUserTrackingPermission;
+
+  /// iOS only. When true the plugin calls ATTrackingManager.requestTrackingAuthorization()
+  /// during initialize() before starting the SDK. No-op on Android.
+  final bool requestTrackingAuthorization;
 }
 
 /// Per-request targeting parameters.

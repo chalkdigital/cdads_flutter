@@ -93,6 +93,7 @@ class CDAdsConfig {
     this.locationUpdateInterval = 30.0,
     this.locationExpiryInterval = 300.0,
     this.clientHasUserTrackingPermission = false,
+    this.requestTrackingAuthorization = false,
   });
 
   String partnerKey;
@@ -130,6 +131,10 @@ class CDAdsConfig {
   /// or confirmed the user is not opted-out (Android).
   bool clientHasUserTrackingPermission;
 
+  /// iOS only. When true the plugin calls ATTrackingManager.requestTrackingAuthorization()
+  /// during initialize() before starting the SDK. No-op on Android.
+  bool requestTrackingAuthorization;
+
   Object encode() {
     return <Object?>[
       partnerKey,
@@ -146,6 +151,7 @@ class CDAdsConfig {
       locationUpdateInterval,
       locationExpiryInterval,
       clientHasUserTrackingPermission,
+      requestTrackingAuthorization,
     ];
   }
 
@@ -166,6 +172,7 @@ class CDAdsConfig {
       locationUpdateInterval: result[11]! as double,
       locationExpiryInterval: result[12]! as double,
       clientHasUserTrackingPermission: result[13]! as bool,
+      requestTrackingAuthorization: result[14]! as bool,
     );
   }
 }

@@ -2,6 +2,7 @@
 export 'src/cdads.dart';
 export 'src/cdads_banner_view.dart';
 export 'src/cdads_banner_widget.dart';
+export 'src/cdads_landing_page_behaviour.dart';
 export 'src/cdads_interstitial_ad.dart';
 export 'src/cdads_rewarded_video_ad.dart';
 export 'src/cdads_native_ad_manager.dart';

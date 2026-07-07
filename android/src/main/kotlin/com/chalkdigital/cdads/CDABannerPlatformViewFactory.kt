@@ -1,6 +1,7 @@
 package com.chalkdigital.cdads
 
 import android.content.Context
+import com.chalkdigital.cdads.CDALandingPageBehaviour
 import com.chalkdigital.cdads.banner.CDABannerView
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
@@ -36,6 +37,10 @@ internal class CDABannerPlatformViewFactory : PlatformViewFactory(StandardMessag
         (params["showCloseButton"] as? Boolean)?.let { view.bannerView.showCloseButton = it }
         (params["isAutoRefreshEnabled"] as? Boolean)?.let { view.bannerView.isAutoRefreshEnabled = it }
         (params["refreshInterval"] as? Number)?.let { view.bannerView.refreshIntervalMs = (it.toDouble() * 1000).toLong() }
+        (params["landingPageBehaviour"] as? String)?.let {
+            view.bannerView.landingPageBehaviour = if (it == "deviceBrowser") CDALandingPageBehaviour.DEVICE_BROWSER
+                                                   else CDALandingPageBehaviour.IN_APP_BROWSER
+        }
         return view
     }
 

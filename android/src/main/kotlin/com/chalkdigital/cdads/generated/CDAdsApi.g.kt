@@ -152,7 +152,12 @@ data class CDAdsConfig (
    * Pass true once the host app has obtained ATT / IDFA permission (iOS)
    * or confirmed the user is not opted-out (Android).
    */
-  val clientHasUserTrackingPermission: Boolean
+  val clientHasUserTrackingPermission: Boolean,
+  /**
+   * iOS only. When true the plugin calls ATTrackingManager.requestTrackingAuthorization()
+   * during initialize() before starting the SDK. No-op on Android.
+   */
+  val requestTrackingAuthorization: Boolean
 )
  {
   companion object {
@@ -171,7 +176,8 @@ data class CDAdsConfig (
       val locationUpdateInterval = pigeonVar_list[11] as Double
       val locationExpiryInterval = pigeonVar_list[12] as Double
       val clientHasUserTrackingPermission = pigeonVar_list[13] as Boolean
-      return CDAdsConfig(partnerKey, host, appName, applicationIabCategory, isTestEnvironment, logLevel, gdprApplies, hasConsent, enableTracking, enableLocationTracking, locationDistanceFilter, locationUpdateInterval, locationExpiryInterval, clientHasUserTrackingPermission)
+      val requestTrackingAuthorization = pigeonVar_list[14] as Boolean
+      return CDAdsConfig(partnerKey, host, appName, applicationIabCategory, isTestEnvironment, logLevel, gdprApplies, hasConsent, enableTracking, enableLocationTracking, locationDistanceFilter, locationUpdateInterval, locationExpiryInterval, clientHasUserTrackingPermission, requestTrackingAuthorization)
     }
   }
   fun toList(): List<Any?> {
@@ -190,6 +196,7 @@ data class CDAdsConfig (
       locationUpdateInterval,
       locationExpiryInterval,
       clientHasUserTrackingPermission,
+      requestTrackingAuthorization,
     )
   }
 }

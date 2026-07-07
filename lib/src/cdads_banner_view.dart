@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'cdads_banner_widget.dart';
+import 'cdads_landing_page_behaviour.dart';
 import 'generated/cdads_api.g.dart';
 
 /// Drop-in banner slot: composes a placeholder with [CDAdsBannerWidget],
@@ -37,6 +38,7 @@ class CDAdsBannerView extends StatefulWidget {
     this.showCloseButton = false,
     this.isAutoRefreshEnabled = true,
     this.refreshInterval = 30,
+    this.landingPageBehaviour = CDAdsLandingPageBehaviour.inAppBrowser,
     this.onLoaded,
     this.onFailedToLoad,
     this.onImpression,
@@ -73,6 +75,9 @@ class CDAdsBannerView extends StatefulWidget {
 
   /// Seconds between automatic ad refreshes. Default 30s.
   final double refreshInterval;
+
+  /// Controls how tapped ad landing pages are opened. Default [CDAdsLandingPageBehaviour.inAppBrowser].
+  final CDAdsLandingPageBehaviour landingPageBehaviour;
 
   final void Function()? onLoaded;
   final void Function(CDAdsError)? onFailedToLoad;
@@ -132,7 +137,11 @@ class _CDAdsBannerViewState extends State<CDAdsBannerView>
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          SizedBox(
+          Container(
+            padding: EdgeInsets.only(
+                left: extra.width / 2,
+                right: extra.width / 2,
+                top: extra.height),
             width: widget.width,
             height: widget.height,
             child: widget.placeholder,
@@ -150,6 +159,7 @@ class _CDAdsBannerViewState extends State<CDAdsBannerView>
               showCloseButton: widget.showCloseButton,
               isAutoRefreshEnabled: widget.isAutoRefreshEnabled,
               refreshInterval: widget.refreshInterval,
+              landingPageBehaviour: widget.landingPageBehaviour,
               onLoaded: widget.onLoaded,
               onFailedToLoad: widget.onFailedToLoad,
               onImpression: widget.onImpression,

@@ -5,6 +5,7 @@ import 'generated/cdads_api.g.dart';
 import 'cdads.dart';
 import 'cdads_event_handler.dart';
 import 'cdads_events.dart';
+import 'cdads_landing_page_behaviour.dart';
 
 /// Flutter widget that renders a banner or MREC ad via a native PlatformView.
 ///
@@ -28,6 +29,7 @@ class CDAdsBannerWidget extends StatefulWidget {
     this.showCloseButton = false,
     this.isAutoRefreshEnabled = true,
     this.refreshInterval = 30,
+    this.landingPageBehaviour = CDAdsLandingPageBehaviour.inAppBrowser,
     this.request,
     this.onLoaded,
     this.onFailedToLoad,
@@ -58,6 +60,9 @@ class CDAdsBannerWidget extends StatefulWidget {
 
   /// Seconds between automatic ad refreshes. Default 30s.
   final double refreshInterval;
+
+  /// Controls how tapped ad landing pages are opened. Default [CDAdsLandingPageBehaviour.inAppBrowser].
+  final CDAdsLandingPageBehaviour landingPageBehaviour;
 
   final CDAdsRequest? request;
   final void Function()? onLoaded;
@@ -154,13 +159,14 @@ class _CDAdsBannerWidgetState extends State<CDAdsBannerWidget> {
   Widget build(BuildContext context) {
     final size = widget.size.cgSize(customWidth: widget.customWidth, customHeight: widget.customHeight);
     final creationParams = {
-      'adUnitId':             widget.adUnitId,
-      'sizePreset':           widget.size.name,
-      'width':                size.width,
-      'height':               size.height,
-      'showCloseButton':      widget.showCloseButton,
-      'isAutoRefreshEnabled': widget.isAutoRefreshEnabled,
-      'refreshInterval':      widget.refreshInterval,
+      'adUnitId':               widget.adUnitId,
+      'sizePreset':             widget.size.name,
+      'width':                  size.width,
+      'height':                 size.height,
+      'showCloseButton':        widget.showCloseButton,
+      'isAutoRefreshEnabled':   widget.isAutoRefreshEnabled,
+      'refreshInterval':        widget.refreshInterval,
+      'landingPageBehaviour':   widget.landingPageBehaviour.name,
     };
 
     // The close button straddles the ad content's top-left corner (native SDK behavior
