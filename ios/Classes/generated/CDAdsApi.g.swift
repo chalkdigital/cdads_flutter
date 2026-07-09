@@ -593,6 +593,7 @@ protocol CDAdsHostApi {
   func setDebugFileLoggingEnabled(enabled: Bool) throws
   /// The SDK's captured debug log text (oldest first).
   func debugLogs() throws -> String
+  func getVendorId() throws -> String
   /// Clears the in-app debug log buffer and its backing file.
   func clearDebugLogs() throws
   /// Presents the native in-app debug log viewer (CDADebugLogViewController on
@@ -937,6 +938,19 @@ class CDAdsHostApiSetup {
       }
     } else {
       showDebugLogViewerChannel.setMessageHandler(nil)
+    }
+    let getVendorIdChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.cdads_flutter.CDAdsHostApi.getVendorId\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getVendorIdChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getVendorId()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getVendorIdChannel.setMessageHandler(nil)
     }
   }
 }

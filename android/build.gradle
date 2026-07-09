@@ -58,5 +58,8 @@ dependencies {
     // CDAds native Android SDK (local project)
     implementation project(":cdads")
 
+    // App Set ID — Android equivalent of iOS identifierForVendor, used by getVendorId()
+    implementation 'com.google.android.gms:play-services-appset:16.1.0'
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }

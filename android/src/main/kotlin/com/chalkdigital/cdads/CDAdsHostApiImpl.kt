@@ -1,6 +1,8 @@
 package com.chalkdigital.cdads
 
 import android.app.Activity
+import com.google.android.gms.appset.AppSet
+import com.google.android.gms.tasks.Tasks
 import com.chalkdigital.cdads.banner.CDABannerListener
 import com.chalkdigital.cdads.generated.CDAdsConfig
 import com.chalkdigital.cdads.generated.CDAdsError
@@ -26,14 +28,22 @@ internal class CDAdsHostApiImpl(
     private val activityProvider: () -> Activity?,
 ) : CDAdsHostApi {
 
+    @Volatile private var cachedVendorId: String = ""
+
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
     override fun initialize(config: CDAdsConfig) {
         val activity = activityProvider() ?: return
+        val appContext = activity.applicationContext
         CDAds.initialize(
-            context = activity.applicationContext,
+            context = appContext,
             configuration = config.toSdk(),
         )
+        Thread {
+            try {
+                cachedVendorId = Tasks.await(AppSet.getClient(appContext).appSetIdInfo).id
+            } catch (_: Exception) {}
+        }.start()
     }
 
     override fun updateConsent(gdprApplies: Boolean, hasConsent: Boolean) {
@@ -131,6 +141,8 @@ internal class CDAdsHostApiImpl(
         val activity = activityProvider() ?: return
         activity.startActivity(android.content.Intent(activity, CDADebugLogActivity::class.java))
     }
+
+    override fun getVendorId(): String = cachedVendorId
 }
 
 // ── Type conversion extensions ────────────────────────────────────────────────

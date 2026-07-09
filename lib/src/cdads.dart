@@ -58,6 +58,10 @@ class CDAds {
   /// The SDK's captured debug log text (oldest first).
   static Future<String> debugLogs() => _hostApi.debugLogs();
 
+  /// Returns IDFV on iOS or App Set ID on Android — a stable per-vendor device
+  /// identifier that does not require tracking permission.
+  static Future<String> getVendorId() => _hostApi.getVendorId();
+
   /// Clears the in-app debug log buffer and its backing file.
   static Future<void> clearDebugLogs() => _hostApi.clearDebugLogs();
 

@@ -158,6 +158,10 @@ final class CDAdsHostApiImpl: NSObject, CDAdsHostApi {
         vc.present(nav, animated: true)
     }
 
+    func getVendorId() throws -> String {
+        UIDevice.current.identifierForVendor?.uuidString ?? ""
+    }
+
     // MARK: - Helpers
 
     private func topViewController() -> UIViewController? {

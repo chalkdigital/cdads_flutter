@@ -563,6 +563,7 @@ interface CDAdsHostApi {
   fun setDebugFileLoggingEnabled(enabled: Boolean)
   /** The SDK's captured debug log text (oldest first). */
   fun debugLogs(): String
+  fun getVendorId(): String
   /** Clears the in-app debug log buffer and its backing file. */
   fun clearDebugLogs()
   /**
@@ -938,6 +939,21 @@ interface CDAdsHostApi {
             val wrapped: List<Any?> = try {
               api.showDebugLogViewer()
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.cdads_flutter.CDAdsHostApi.getVendorId$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getVendorId())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
